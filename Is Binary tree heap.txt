@@ -1,0 +1,38 @@
+class Solution {
+  public:
+    bool isHeap(Node* tree) {
+        if(tree==nullptr)return true;
+        queue<Node*> q;
+        q.push(tree);
+        bool nullchild=false;
+        
+        while(!q.empty())
+        {
+            Node* temp=q.front();
+            q.pop();
+            
+            
+            if(temp->left)
+            {
+                if(nullchild || temp->left->data>temp->data)return false;
+                q.push(temp->left);
+            }
+            else
+            {
+                nullchild=true;
+            }
+            
+            if(temp->right)
+            {
+                if(nullchild || temp->right->data>temp->data)return false;
+                q.push(temp->right);
+            }
+            else
+            {
+                nullchild=true;
+            }
+            
+        }
+        return true;
+    }
+};
