@@ -1,0 +1,99 @@
+// class Solution {
+//   public:
+//     // Function to sort a linked list of 0s, 1s and 2s.
+//     Node* segregate(Node* head) {
+//         //Approach 1
+//         if(head==nullptr)return nullptr;
+        
+//         Node *p=head;
+//         int zero=0;
+//         int one =0;
+//         int two=0;
+//         int length=0;
+        
+//         while(p)
+//         {
+//             length++;
+//             if(p->data==0)zero++;
+//             else if(p->data==1)one++;
+//             else two++;
+//             p=p->next;
+//         }
+        
+//         Node* dummy=new Node(-1);
+//         Node* last=dummy;
+        
+//         for(int i=0;i<length;i++)
+//         {
+//             if(zero!=0)
+//             {
+//                 Node* t=new Node(0);
+//                 last->next=t;
+//                 last=t;
+//                 zero--;
+//             }
+//             else if(one!=0)
+//             {
+//                 Node* t=new Node(1);
+//                 t->data=1;
+//                 last->next=t;
+//                 last=t;
+//                 one--;
+//             }
+//             else if(two!=0)
+//             {
+//                 Node* t=new Node(2);
+//                 t->data=2;
+//                 last->next=t;
+//                 last=t;
+//                 two--;
+//             }
+//         }
+//         return dummy->next;
+        
+//     }
+// };
+
+class Solution {
+  public:
+    // Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node* head) {
+        //Approach 2
+        if(head==NULL)return NULL;
+        Node*p=head;
+        
+        Node* dummyzero=new Node(-1);
+        Node* zero= dummyzero;
+        Node* dummyone=new Node(-1);
+        Node* one= dummyone;
+        Node* dummytwo=new Node(-1);
+        Node* two= dummytwo;
+        
+        while(p)
+        {
+            if(p->data==0)
+            {
+                zero->next=p;
+                zero=p;
+            }
+            else if(p->data==1)
+            {
+                one->next=p;
+                one=p;
+            }
+            else if(p->data==2)
+            {
+                two->next=p;
+                two=p;
+            }
+            p=p->next;
+        }
+        
+        zero->next= dummyone->next!=nullptr?dummyone->next:dummytwo->next;
+        one->next=dummytwo->next;
+        two->next=NULL;
+        
+        return dummyzero->next;
+        
+    }
+};
