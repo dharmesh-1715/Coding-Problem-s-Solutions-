@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    vector<int> nthRowOfPascalTriangle(int n) {
+        //Optimal Approach
+        
+        vector<int> ans;//store row here
+        int temp=1;
+        ans.push_back(temp);//first element of the row
+        
+        for(int i=1;i<n;i++)// nCr Fucntion Implementation 
+        {
+            temp=temp*(n-i);
+            temp=temp/(i);
+            ans.push_back(temp);//at each time adding new element to the Row
+        }
+        
+        return ans;//returning the Row
+    }
+};
