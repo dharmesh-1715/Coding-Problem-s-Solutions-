@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    int findMaximum(vector<int> &arr) {
+        // Stack Underflow
+        
+        //Appraoch 1 (Using linear search)
+        
+        // int n=arr.size();
+        // if(arr[0]>arr[1])return arr[0];//Checking the first element
+        // if(arr[n-2]<arr[n-1])return arr[n-1];//checking the last element
+    
+        // for(int i=0;i<n-1;i++)
+        // {
+        //     if(arr[i]>arr[i+1])//Checking the each element One by one
+        //     {
+        //         return arr[i];
+        //     }
+        // }
+        
+        // return -1;//this never executes as array has definitely one point present
+        
+        
+        //Appraoch 2 (Using the Binary Search algorithm)
+        int n=arr.size();
+        if(arr[0]>arr[1])return arr[0];//Checking the first element
+        if(arr[n-2]<arr[n-1])return arr[n-1];//checking the last element
+        int low=1;
+        int high=n-2;
+        
+        while(low<=high)//typical binary search template
+        {
+            int mid=(high+low)/2;
+            
+            if(arr[mid]>arr[mid-1] and arr[mid]>arr[mid+1])
+            {
+                return arr[mid];
+            }
+            else if(arr[mid]>arr[mid+1])//On the decresing slope
+            {
+                high=mid-1;
+            }
+            else
+            {
+                low=mid+1;//on the incresing slope or anywhere else  
+            }
+        }
+        return -1;//Never executed becauase It is guaranteed that the array contains exactly one bitonic point.
+    }
+};
