@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        int answer=0;
+        unordered_map<char, int> romanMap = {//Stored All the Values
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
+
+        for(int i=0;i<s.length();i++)//Loop Over the Roman Number
+        {
+            char ch=s[i];
+            if(ch=='I' && (i+1<s.length() and (s[i+1]=='V' or s[i+1]=='X')))//Checking each entry for the given Conditions 
+            {
+                if(s[i+1]=='V')answer+=4;
+                else answer+=9;
+                i++;
+            }
+            else if(ch=='X' && (i+1<s.length() and (s[i+1]=='L' or s[i+1]=='C')))
+            {
+                if(s[i+1]=='L')answer+=40;
+                else answer+=90;
+                i++;
+            }
+            else if(ch=='C' && (i+1<s.length() and (s[i+1]=='D' or s[i+1]=='M')))
+            {
+                if(s[i+1]=='D')answer+=400;
+                else answer+=900;
+                i++;
+            }
+            else
+            {
+                answer+=romanMap[ch];//If all conditions fails then use this 
+            }
+        }
+
+        return answer;//return this Number 
+    }
+};
