@@ -1,0 +1,53 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+
+        string answer="";//For storing the answer
+
+        int n1=a.length()-1;
+        int n2=b.length()-1;
+
+        int carry=0;//For storing the carry
+        int element1=0;
+        int element2=0;
+
+        while(n1>=0 or n2>=0 or carry!=0)//Run until Every condition fails 
+        {
+            int element1=0;
+            int element2=0;
+            if(n1>=0)
+            {
+                if(a[n1]=='1')element1=1;
+                n1--;
+            }
+            if(n2>=0)
+            {
+                if(b[n2]=='1')element2=1;
+                n2--;
+            }
+            //element1+element2+carry ---> It can have Only 4 answers 0, 1, 2, 3 So handling them all one by one as follows 
+            if((element1+element2+carry)==0)
+            {
+                answer='0'+answer;
+                carry=0;
+            }
+            else if((element1+element2+carry)==1)
+            {
+                answer='1'+answer;
+                carry=0;
+            }
+            else if((element1+element2+carry)==2)
+            {
+                answer='0'+answer;
+                carry=1;
+            }
+            else if((element1+element2+carry)==3)
+            {
+                answer='1'+answer;
+                carry=1;
+            }
+        }
+
+        return answer;//returning the Answer
+    }
+};
