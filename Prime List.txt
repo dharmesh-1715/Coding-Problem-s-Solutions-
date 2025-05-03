@@ -1,0 +1,63 @@
+class Solution {
+  public:
+  
+    bool isprime(int num)//code for finding out the prime number 
+    {
+        if(num<=1)return false;
+        for(int i=2;i<=sqrt(num);i++)
+        {
+            if(num%i==0)return false;
+        }
+        return true;
+    }
+    
+    Node *primeList(Node *head) {
+        // Stack underflow
+        
+        Node* p=head;
+        
+        while(p)//traversing starts from here
+        {
+            if(isprime(p->val))//checking if node is already prime number 
+            {
+                p=p->next;
+                continue;
+            }
+            
+            int ele=p->val;
+            int small=ele;
+            int large=ele;
+            
+            if(small==1)//special type for the number 1
+            {
+                p->val=2;
+                p=p->next;
+                continue;
+            }
+            
+            while(!isprime(small) and small>=2)//finding the prime number backward
+            {
+                small--;
+            }
+            
+            while(!isprime(large))//finding in the forward direction
+            {
+                large++;
+            }
+            
+            int cnt1=ele-small;//calculating the distance from the main element 
+            int cnt2=large-ele;
+            
+            if(cnt1<=cnt2)//changing with the small when small and at aqual distance
+            {
+                p->val=small;
+            }
+            else
+            {
+                p->val=large;
+            }
+            p=p->next;
+        }
+        return head; //returning head
+    }
+};
