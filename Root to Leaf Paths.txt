@@ -1,0 +1,58 @@
+//C++
+
+class Solution {
+  public:
+    void dfs_preorder(Node* node,vector<int>& path,vector<vector<int>>& ans)
+    {
+        if(node==nullptr)return;
+        
+        path.push_back(node->data);
+        
+        if(node->left==nullptr and node->right==nullptr)
+        {
+            ans.push_back(path);
+        }
+        else
+        {
+            dfs_preorder(node->left,path,ans);
+            dfs_preorder(node->right,path,ans);
+        }
+        path.pop_back();
+    }
+    vector<vector<int>> Paths(Node* root) {
+        if(root==nullptr)return {};
+        vector<vector<int>> ans;
+        vector<int> path;
+        dfs_preorder(root,path,ans);
+        return ans;
+    }
+};
+
+//Java
+
+class Solution {
+    
+    public void dfsPreorder(Node node, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> ans) {
+        if (node == null) return;
+
+        path.add(node.data);
+
+        if (node.left == null && node.right == null) {
+            ans.add(new ArrayList<>(path));
+        } else {
+            dfsPreorder(node.left, path, ans);
+            dfsPreorder(node.right, path, ans);
+        }
+
+        path.remove(path.size() - 1);
+    }
+    
+    public static ArrayList<ArrayList<Integer>> Paths(Node root) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        if (root == null) return ans;
+        ArrayList<Integer> path = new ArrayList<>();
+        Solution obj=new Solution();
+        obj.dfsPreorder(root, path, ans);
+        return ans;
+    }
+}
