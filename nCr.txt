@@ -1,0 +1,40 @@
+//C++
+class Solution {
+  public:
+    int nCr(int n, int r) {
+        if(r>n)return 0;
+        if(r==n)return 1;
+        if(r==n-1)return n;
+        
+        long ans=1;
+        
+        for(int i=1;i<=r;i++)
+        {
+            ans=ans*n;
+            n--;
+            ans=ans/i;
+        }
+        
+        return (int)ans;
+    }
+};
+
+//Java Code
+class Solution {
+    public int nCr(int n, int r) {
+        // code here
+        if(r>n)return 0;
+        if(r==n)return 1;
+        if(r==n-1)return n;
+        
+        long ans=1;
+        
+        for(int i=1;i<=r;i++)
+        {
+            ans*=n;
+            n--;
+            ans/=i;
+        }
+        return (int)ans;
+    }
+}
