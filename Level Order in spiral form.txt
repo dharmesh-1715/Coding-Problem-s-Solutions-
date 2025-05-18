@@ -1,0 +1,65 @@
+//C++
+class Solution {
+  public:
+    vector<int> findSpiral(Node* root) {
+        vector<int> ans;
+        queue<Node*> q;
+        bool flag=false;
+        q.push(root);
+        
+        
+        while(!q.empty())
+        {
+            int sizee=q.size();
+            vector<int> level(sizee);
+            
+            for(int i=0;i<sizee;i++)
+            {
+                Node* n=q.front();
+                q.pop();
+                int index=flag ? i : (sizee-1-i);
+                level[index]=n->data;
+                
+                if(n->left)q.push(n->left);
+                if(n->right)q.push(n->right);
+                
+            }
+            
+            ans.insert(ans.end(), level.begin(), level.end());
+            flag=!flag;
+        }
+        return ans;
+    }
+};
+
+//Java Code
+class Solution {
+    public ArrayList<Integer> findSpiral(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        Queue<Node> q = new ArrayDeque<>();
+        q.offer(root);
+
+        boolean leftToRight = false;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            Integer[] level = new Integer[size];
+
+            for (int i = 0; i < size; ++i) {
+                Node cur = q.poll();
+
+                int idx = leftToRight ? i : (size - 1 - i);
+                level[idx] = cur.data;
+
+                if (cur.left  != null) q.offer(cur.left);
+                if (cur.right != null) q.offer(cur.right);
+            }
+
+            Collections.addAll(ans, level);
+            leftToRight = !leftToRight;
+        }
+        return ans;
+    }
+}
