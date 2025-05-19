@@ -1,0 +1,137 @@
+//C++ Code
+class Solution {
+  public:
+    int minTime(Node* root, int target) {
+        queue<Node*> q;
+        unordered_map<Node*,Node*> parent;
+        parent[root]=nullptr;
+        Node* tar=nullptr;
+        q.push(root);
+        
+        while(!q.empty())
+        {
+            Node* curr=q.front();
+            q.pop();
+            
+            if(curr->data==target)
+            {
+                tar=curr;
+            }
+            
+            if(curr->left!=nullptr)
+            {
+                parent[curr->left]=curr;
+                q.push(curr->left);
+            }
+            
+            if(curr->right!=nullptr)
+            {
+                parent[curr->right]=curr;
+                q.push(curr->right);
+            }
+        }
+        
+        int ans=-1;
+        unordered_map<Node*,bool> visited;
+        q.push(tar);
+        
+        while(!q.empty())
+        {
+            int n=q.size();
+            
+            while(n--){
+                Node* curr=q.front();
+                q.pop();
+                visited[curr]=true;
+            
+                if(curr->left!=nullptr and visited[curr->left]!=true)
+                {
+                    q.push(curr->left);
+                }
+            
+                if(curr->right!=nullptr and visited[curr->right]!=true)
+                {
+                    q.push(curr->right);
+                }
+            
+                if(parent[curr]!=nullptr and visited[parent[curr]]!=true)
+                {
+                    q.push(parent[curr]);
+                }
+            }
+            
+            ans++;
+        }
+        return ans;
+    }
+};
+
+//Java Code
+class Solution {
+    public static int minTime(Node root, int target) {
+        if (root == null)
+            return -1;
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        Node tar = null;
+
+        Map<Node, Node> par = new HashMap<>();
+        par.put(root, null);
+
+        while (!q.isEmpty()) {
+            Node curr = q.poll();
+
+            
+            if (curr.data == target)
+                tar = curr;
+
+            
+            if (curr.left != null) {
+                par.put(curr.left, curr);
+                q.add(curr.left);
+            }
+
+           
+            if (curr.right != null) {
+                par.put(curr.right, curr);
+                q.add(curr.right);
+            }
+        }
+
+        
+        Map<Node, Boolean> vis = new HashMap<>();
+
+        int ans = -1;
+
+        q.add(tar);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                Node curr = q.poll();
+                vis.put(curr, true);
+
+                
+                if (curr.left != null
+                    && !vis.getOrDefault(curr.left, false))
+                    q.add(curr.left);
+
+                
+                if (curr.right != null
+                    && !vis.getOrDefault(curr.right, false))
+                    q.add(curr.right);
+
+                
+                if (par.get(curr) != null
+                    && !vis.getOrDefault(par.get(curr),
+                                         false))
+                    q.add(par.get(curr));
+            }
+            ans++;
+        }
+
+        return ans;
+        
+    }
+}
