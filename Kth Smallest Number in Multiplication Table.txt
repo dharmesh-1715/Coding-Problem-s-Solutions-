@@ -1,0 +1,57 @@
+//C++ Code
+class Solution {
+  public:
+    int count(int mid,int m,int n)
+    {
+        int sum=0;
+        for(int i=1;i<=m;i++)
+        {
+            sum+=min(mid/i,n);
+        }
+        return sum;
+    }
+    int kthSmallest(int m, int n, int k) {
+        
+        int low=1,high=m*n,ans=-1;
+        
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            
+            if(count(mid,m,n)<k)
+            {
+                low=mid+1;
+            }
+            else
+            {
+                ans=mid;
+                high=mid-1;
+            }
+        }
+        return ans;
+}
+
+//Java Code
+class Solution {
+    static int count(int val, int m, int n) {
+        int cnt = 0;
+        for (int i = 1; i <= m; ++i) {
+            cnt += Math.min(val / i, n);
+        }
+        return cnt;
+    }
+
+    static int kthSmallest(int m, int n, int k) {
+        int l = 1, h = m * n,ans=-1;
+        while (l <= h) {
+            int mid = (l + h) / 2;
+            if (count(mid, m, n) < k) {
+                l = mid + 1;
+            } else {
+                ans=mid;
+                h = mid-1;
+            }
+        }
+        return ans; 
+    }
+}
