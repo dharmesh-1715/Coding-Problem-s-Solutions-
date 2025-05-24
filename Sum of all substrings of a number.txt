@@ -1,0 +1,52 @@
+//C++ Code
+class Solution {
+  public:
+    int chartoint(char a)
+    {
+        return a-'0';
+    }
+    
+    int sumSubstrings(string &s) {
+        
+        int i=0;
+        int n=s.size();
+        vector<int> prefixsum(n);
+        prefixsum[i]=chartoint(s[i]);
+        int sum=prefixsum[i];
+        i++;
+        
+        for(;i<n;i++)
+        {
+            int n=chartoint(s[i]);
+            prefixsum[i]=(i+1)*n+10*(prefixsum[i-1]);
+            sum+=prefixsum[i];
+        }
+        return sum;
+    }
+};
+
+
+//Java Code
+class Solution {
+    public static int chartoint(char a)
+    {
+        return a-'0';
+    }
+    
+    public static int sumSubstrings(String s) {
+        int i=0;
+        int n=s.length();
+        int prefixsum[] = new int[n];
+        prefixsum[i]=chartoint(s.charAt(i));
+        int sum=prefixsum[i];
+        i++;
+        
+        for(;i<n;i++)
+        {
+            int num=chartoint(s.charAt(i));
+            prefixsum[i]=(i+1)*num+10*(prefixsum[i-1]);
+            sum+=prefixsum[i];
+        }
+        return sum;
+    }
+}
