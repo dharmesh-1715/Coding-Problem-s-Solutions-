@@ -1,0 +1,59 @@
+//C++ code
+class Solution {
+  public:
+    bool pythagoreanTriplet(vector<int>& arr) {
+        
+        int maxelement=*max_element(arr.begin(),arr.end());
+        vector<int> vec(maxelement+1,0);
+        
+        for(int n:arr)
+        {
+            vec[n]=true;
+        }
+        
+        for(int i=1;i<maxelement+1;i++)
+        {
+            if(vec[i]!=true)continue;
+            
+            for(int j=1;j<maxelement+1;j++)
+            {
+                if(vec[j]!=true)continue;
+                
+                int c=sqrt(i*i+j*j);
+                
+                if((c*c)!=(i*i + j*j) or c>maxelement)continue;
+                
+                if(vec[c]==true)return true;
+            }
+        }
+        return false;
+    }
+};
+
+//Java Code
+class Solution {
+    boolean pythagoreanTriplet(int[] arr) {
+        int n = arr.length;
+        HashSet<Integer> st = new HashSet<>();
+        for (int i = 0; i < n; i++)
+            st.add(arr[i]);
+
+        
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {    
+              
+              	int a = arr[i];
+          		int b = arr[j];
+          
+            
+            	int c = (int)Math.sqrt(a * a + b * b);
+            
+       
+            	if (c*c == a*a + b*b && st.contains(c))
+                	return true;
+            }
+        }
+      
+        return false;
+    }
+}
