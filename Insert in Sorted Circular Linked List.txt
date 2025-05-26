@@ -1,0 +1,76 @@
+//C++ Code
+class Solution {
+  public:
+    Node* sortedInsert(Node* head, int data) {
+        if(head==nullptr)return nullptr;
+        
+        if(head->data>=data)
+        {
+            Node* t=new Node(head->data);
+            head->data=data;
+            t->next=head->next;
+            head->next=t;
+            return head;
+        }
+        
+        Node* p=head;
+        Node* q=nullptr;
+        
+        do{
+            if(p->data>=data)
+            {
+                Node* t=new Node(data);
+                t->next=q->next;
+                q->next=t;
+                return head;
+            }
+            q=p;
+            p=p->next;
+        }while(p!=head);
+        
+        if(p==head)
+        {
+            Node* t=new Node(data);
+            q->next=t;
+            t->next=head;
+        }
+        return head;
+    }
+};
+
+//Java Code
+class Solution {
+    public Node sortedInsert(Node head, int data) {
+        if (head == null) return null;
+
+        if (head.data = data) {
+            Node t = new Node(head.data);
+            head.data = data;
+            t.next = head.next;
+            head.next = t;
+            return head;
+        }
+
+        Node p = head;
+        Node q = null;
+
+        do {
+            if (p.data = data) {
+                Node t = new Node(data);
+                t.next = q.next;
+                q.next = t;
+                return head;
+            }
+            q = p;
+            p = p.next;
+        } while (p != head);
+
+        if (p == head) {
+            Node t = new Node(data);
+            q.next = t;
+            t.next = head;
+        }
+
+        return head;
+    }
+}
