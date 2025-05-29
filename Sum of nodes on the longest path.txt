@@ -1,0 +1,75 @@
+//C++ code
+class Solution {
+  public:
+    void dfs_inorder(Node* root,int &track_sum,int &ans_sum,int &track_len,int &len)
+    {
+        if(root!=nullptr)
+        {
+            track_sum+=root->data;
+            if(root->left!=nullptr)
+            {
+                track_len++;
+                dfs_inorder(root->left,track_sum,ans_sum,track_len,len);
+            }
+            if(root->right!=nullptr)
+            {
+                track_len++;
+                dfs_inorder(root->right,track_sum,ans_sum,track_len,len);
+            }
+        }
+        if(track_len>len)
+        {
+            ans_sum=track_sum;
+            len=track_len;
+        }
+        else if(track_len==len)
+        {
+            ans_sum=max(ans_sum,track_sum);
+        }
+        track_sum-=root->data;
+        track_len--;
+    }
+    int sumOfLongRootToLeafPath(Node *root) {
+        int track_sum=0,ans_sum=0,track_len=1,len=1;
+        dfs_inorder(root,track_sum,ans_sum,track_len,len);
+        return ans_sum;
+    }
+};
+
+//Java Code
+class Solution {
+  public:
+    void dfs_inorder(Node* root,int &track_sum,int &ans_sum,int &track_len,int &len)
+    {
+        if(root!=nullptr)
+        {
+            track_sum+=root->data;
+            if(root->left!=nullptr)
+            {
+                track_len++;
+                dfs_inorder(root->left,track_sum,ans_sum,track_len,len);
+            }
+            if(root->right!=nullptr)
+            {
+                track_len++;
+                dfs_inorder(root->right,track_sum,ans_sum,track_len,len);
+            }
+        }
+        if(track_len>len)
+        {
+            ans_sum=track_sum;
+            len=track_len;
+        }
+        else if(track_len==len)
+        {
+            ans_sum=max(ans_sum,track_sum);
+        }
+        track_sum-=root->data;
+        track_len--;
+    }
+    int sumOfLongRootToLeafPath(Node *root) {
+        int track_sum=0,ans_sum=0,track_len=1,len=1;
+        dfs_inorder(root,track_sum,ans_sum,track_len,len);
+        return ans_sum;
+    }
+};
