@@ -1,0 +1,67 @@
+//C++
+class Solution {
+  public:
+    int count(string& s, int k)
+    {
+        vector<int> freq(26,0);
+        
+        int left=0,right=0;
+        int distinct=0;
+        int count=0;
+        
+        while(right<s.length())
+        {
+            freq[s[right]-'a']++;
+            if(freq[s[right]-'a']==1)distinct++;
+            
+            while(distinct>k)
+            {
+                freq[s[left]-'a']--;
+                if(freq[s[left]-'a']==0)distinct--;
+                left++;
+            }
+            
+    
+            count+=right-left+1;
+            
+            right++;
+        }
+        return count;
+    }
+    
+    int countSubstr(string& s, int k) {
+        
+        return count(s,k)-count(s,k-1);
+    }
+};
+
+//Java
+class Solution {
+    int count(String s, int k)
+    {
+        int left=0,right=0,distinct=0,count=0;
+        int [] freq = new int[26];
+        
+        while(right<s.length())
+        {
+            char ch=s.charAt(right);
+            freq[ch-'a']++;
+            if(freq[ch-'a']==1)distinct++;
+            
+            while(distinct>k)
+            {
+                char c=s.charAt(left);
+                freq[c-'a']--;
+                if(freq[c-'a']==0)distinct--;
+                left++;
+            }
+            
+            count+=right-left+1;
+            right++;
+        }
+        return count;
+    }
+    int countSubstr(String s, int k) {
+        return count(s,k)-count(s,k-1);
+    }
+}
